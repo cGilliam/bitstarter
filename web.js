@@ -1,12 +1,11 @@
-var fs = require('fs');
-var buf = fs.readFileSync('/index.html');
-
 var express = require('express');
-
 var app = express.createServer(express.logger());
 
 app.get('/', function(request, response) {
-  response.send(buf.toString());
+    var fs = require('fs');
+    var mystring = fs.readFileSync('index.html');
+    var buf = new Buffer(mystring);  // second argument not needed because defaults to 'utf8'
+    response.send(buf.toString()); // no arguments needed because default is (utf8, 0, buffer.length)
 });
 
 var port = process.env.PORT || 5000;
